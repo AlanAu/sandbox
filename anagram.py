@@ -9,8 +9,8 @@ except:
 
 wordhash = {}
 for letter in word.lower():
-    if letter in wordhash.keys(): wordhash[letter] = int(wordhash[letter]) + 1
-    else: wordhash[letter] = 1
+    if letter in wordhash.keys(): wordhash[letter] = wordhash[letter] + 1
+    else: wordhash[letter] = 1 #add entry if it isn't already in there
 
 with open("dictionary.txt") as dict: #requires external newline-delimited word list
     printme = True
@@ -20,9 +20,9 @@ with open("dictionary.txt") as dict: #requires external newline-delimited word l
         for letter in dictword.lower():
             if letter in dicthash.keys():
                 if dicthash[letter] > 1: dicthash[letter] = dicthash[letter] - 1
-                else: del dicthash[letter]
+                else: del dicthash[letter] #remove entry when it would have been decremented to 0
             else: 
                 printme = False
-                break
-        if printme: print(dictword)
-        else: printme = True
+                break #can stop checking letters as soon as one of them fails
+        if printme: print(dictword) #if passed, print to console
+        else: printme = True #if failed, reset flag (without printing)
