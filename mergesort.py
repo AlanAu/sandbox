@@ -20,9 +20,7 @@ def mergesort(inlist):
 def merge(leftlist, rightlist):
     outlist = []
     left = right = 0
-    lenleft = len(leftlist)
-    lenright = len(rightlist)
-    while (left < lenleft) and (right < lenright):
+    while (left < len(leftlist)) and (right < len(rightlist)):
         if leftlist[left] < rightlist[right]:
             outlist.append(leftlist[left])
             left += 1
