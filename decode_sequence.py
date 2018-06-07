@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+__author__ = "Alan Au"
+__date__   = "2018-06-06"
+
 #This is a programming practice problem:
 #Given a sequence of integers, decode them into valid strings of letters.
 
