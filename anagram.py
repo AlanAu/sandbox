@@ -1,28 +1,41 @@
-#Python 3.4
+#!/usr/bin/python3
+__author__ = 'Alan Au'
+__date__   = '2018-06-08'
+
+#This is practice code to list anagrams and substring-anagrams of a word.
+
 import sys
 
+external_dict = "./dictionary.txt" #newline-delimited word list
+
 try:
-    word = sys.argv[1]
+    word = sys.argv[1].lower()
 except:
-    print ("usage: anagram.py word")
-    exit()
+    sys.exit("usage: anagram.py word")
 
-wordhash = {}
-for letter in word.lower():
-    if letter in wordhash.keys(): wordhash[letter] = wordhash[letter] + 1
-    else: wordhash[letter] = 1 #add entry if it isn't already in there
+word_hash = {}
+for letter in word:
+    if letter in word_hash: 
+        word_hash[letter] = word_hash[letter] + 1
+    else: 
+        word_hash[letter] = 1
 
-with open("dictionary.txt") as dict: #requires external newline-delimited word list
-    printme = True
-    for dictword in dict:
-        dictword = dictword.rstrip() #get rid of trailing newline
-        dicthash = wordhash.copy() #make a fresh copy for each word
-        for letter in dictword.lower():
-            if letter in dicthash.keys():
-                if dicthash[letter] > 1: dicthash[letter] = dicthash[letter] - 1
-                else: del dicthash[letter] #remove entry when it would have been decremented to 0
+with open(external_dict) as dictionary: 
+    print_word = True
+    for dict_word in dictionary:
+        dict_word = dict_word.rstrip().lower()
+        my_word = word_hash.copy() #make fresh copy
+        
+        for letter in dict_word:
+            if letter in my_word:
+                if my_word[letter] > 1: 
+                    my_word[letter] = my_word[letter] - 1
+                else: 
+                    del my_word[letter]
             else: 
-                printme = False
-                break #can stop checking letters as soon as one of them fails
-        if printme: print(dictword) #if passed, print to console
-        else: printme = True #if failed, reset flag (without printing)
+                print_word = False
+                break #if fails, don't need to check the rest
+        
+        if print_word: 
+            print(dict_word)
+        print_word = True
